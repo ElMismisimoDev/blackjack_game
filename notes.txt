@@ -1,0 +1,14 @@
+COSAS POR HACER:
+
+- Mostrar la carta que te ha tocado justo despues de apostar. [X]
+
+- Hacer que cuando te pases de 21, pierdas automaticamente. [X]
+- Hacer que se muestre toda la mano cada vez que se apuesta. [X]
+
+- En los resultados, se muestran las cartas tanto del player como del dealer. Tambien se mostraran la puntuacion a la que han
+llegado tanto el player como el dealer y por ultimo se muestra un texto del jugador que ha ganado. [X]
+
+- Pensar en como solucionar el problema de los ases. []
+- Hacer animacion de "Cargando..." despues justo de mostrar la carta. [X]
+
+- Tengo la intencion de meter un contador de dinero para simular apuestas. []
