@@ -6,7 +6,12 @@ import keyboard
 # Variables ###################################################
 
 deck = []
+has_game_started = False
 winner = None
+
+money = 5000
+bet_money = 0
+takenLoans = 0
 
 CARDS = range(2, 14)
 TYPES = {
@@ -15,6 +20,12 @@ TYPES = {
     "S": "Spades",
     "D": "Diamonds"
 }
+
+# Width = 100, Height = 30 
+
+WIDTH = 100
+HEIGHT = 30
+os.system("mode con: cols=" + str(WIDTH) + " lines=" + str(HEIGHT))
 
 # Class User (Jugador) ########################################
 
@@ -60,7 +71,7 @@ class User:
 
         return cardName
 
-    def bet(self):
+    def giveCard(self): # Se llama a esta funcion cuando se hace un "hit".
         
         global winner
 
@@ -69,7 +80,7 @@ class User:
 
         # Identificar el tipo de carta para mostrarla (solo para el player).
 
-        if self.name == "player":
+        if self.name == "player" and has_game_started:
             print(" Card: " + cardName)
         
 
@@ -93,7 +104,7 @@ class User:
                 self.is_playing = False
 
 
-    def end(self):
+    def stand(self):
         self.is_playing = False
 
     def should_hit(self): # Solo para la IA.
@@ -119,21 +130,136 @@ class User:
     def play(self): #Funcion solo para la IA.
 
         if self.should_hit():
-            self.bet()
+            self.giveCard()
         else:
-            self.end()
+            self.stand()
 
 # Users #######################################################
 
 player = User("player")
 dealer = User("dealer")
 
+UsersList = [player, dealer]
+
 # Functions ###################################################
+
+def loading_print(seconds: float): 
+
+    '''Funcion que simula una animacion de "Cargando". Dura los segundos que
+    se indiquen como argumento.'''
+
+    print("\n ##############################################################\n")
+    print("                            Loading...                             ")
+    print("\n ##############################################################\n")
+    time.sleep(seconds)
+    os.system('cls')
+
 
 def create_deck():
     for type in TYPES:
         for card in CARDS:
             deck.append(type + str(card))
+
+def choose_bet():
+
+    global money
+    global bet_money
+
+    while True:
+    
+        try:
+            bet_money = int(input("Select the quantity you want to bet.\nYour money: " + str(money) + "$\n\n"))
+            os.system('cls')
+    
+            if bet_money > 0 and bet_money <= money:
+
+                print("You are gonna bet " + str(bet_money) + "$")
+                choice = str(input("Are you sure? (y/n): "))
+                os.system('cls')
+
+                if choice.lower() == "y":
+
+                    money -= bet_money 
+                    print("Okay. The game is about to start.")
+                    time.sleep(2.0)
+                    os.system('cls')
+                    break
+                elif choice.lower() == "n":
+
+                    os.system('cls')
+                    continue
+                else:
+
+                    print("Error! Invalid option. Try again.")
+                    time.sleep(2.0)
+                    os.system('cls')
+                    continue
+            elif bet_money <= 0:
+
+                print("Well sir, we dont accept that quantity. Try again please.")
+                time.sleep(2.0)
+                os.system('cls')
+                continue
+            elif bet_money > money:
+
+                print("Sir, you dont have that money. Try again please.")
+                time.sleep(2.0)
+                os.system('cls')
+                continue
+        
+        except ValueError:
+
+            os.system('cls')
+            print("Error! Invalid option. Try again.")
+            time.sleep(2.0)
+            os.system('cls')
+            continue
+
+def loan():
+    '''Evento que ocurre cuando al jugador no le queda dinero al reiniciar la partida.
+    Se le da la opcion de pedir un prestamo y si accede, se suma uno al contador de prestamos.'''
+
+    global money
+    global takenLoans
+    
+    print("It seems you dont have any money left sir.")
+    time.sleep(2.0)
+    print("Howewer, we offer you the option to take a loan.")
+    time.sleep(2.0)
+    print("Worth of 5000$")
+    time.sleep(2.5)
+
+    os.system('cls')
+    while True:
+
+        option = str(input("Do you want to take the loan sir? (y/n):\n\n"))
+        os.system('cls')
+
+        if option.lower() == "y":
+            
+            money += 5000
+            takenLoans += 1
+            print("Good. Here's your money sir. Enjoy")
+            time.sleep(2.0)
+            os.system('cls')
+            break
+        elif option.lower() == "n":
+
+            print("In that case, this is the end of the game sir.")
+            time.sleep(1.5)
+            print("Have a great night")
+            time.sleep(1.5)
+            exit()
+        else:
+            print(" Invalid Option. Try again.\n")
+            time.sleep(2.0)
+            os.system('cls')
+            continue
+
+
+
+    
+
 
 def restart():
     
@@ -148,12 +274,52 @@ def restart():
     dealer = User("dealer")
 
     os.system('cls')
-    create_deck()
+    if money <= 0:
+        loan()
+
+    start()
+
+def introduction():
+
+    print("Hello")
+    time.sleep(1.5)
+    print("You're about to play blackjack, you know the rules right?")
+    time.sleep(2.5)
+    print("The objective is to get the closest possible to 21 with your cards. Easy")
+    time.sleep(2.5)
+    print("If you get above 21, you lose.")
+    time.sleep(2.0)
+    os.system('cls')
+    print("Do you need more tips?")
+    #Por hacer...
+
+def start():
+
+    global has_game_started
+
+    choose_bet() # Elegimos la cantidad que queremos apostar.
+
+    loading_print(2.5)
+
+    create_deck() # Creamos la baraja para poder repartir las cartas.
+
+    for user in UsersList: # Repartimos las cartas.
+        for x in range(2):
+            user.giveCard()
+
+    has_game_started = True
 
 # Program #####################################################
 
+
+
+
+
+
+
+
 os.system('cls')
-create_deck()
+start()
 
 while True:
    
@@ -164,38 +330,40 @@ while True:
 
     if player.is_playing:
 
-        # Primero muestra la baraja del jugador.
+        # Primero muestra el titulo del juego, prestamos, el dinero del jugador y su apuesta.
 
-        if len(player.hand) == 0:
-            print("\n PLAYER'S CARDS:")
-            print(" - None")
-        else:
-            print("\n PLAYER'S CARDS:")
-            for card in player.hand:
-                print(" - " + card)
+        loan_label = "Loans: " + str(takenLoans)
+        money_label = "Money: " + str(money) + "$"
+        bet_label = "Bet: " + str(bet_money) + "$"
+
+        print("BLACKJACK" + loan_label.rjust(WIDTH - 9)) #Se le resta menos 9 porque es la cantidad de letras que tiene "BLACKJACK".
+        print(money_label.rjust(WIDTH))
+        print(bet_label.rjust(WIDTH))
+
+        # Luego muestra la baraja del jugador.
+
+        print("\n PLAYER'S CARDS:")
+        for card in player.hand:
+            print(" - " + card)
 
         print("\n -------------------------------------------------------------")
 
         # Pregunta por la opcion del jugador.
 
-        playerChoice = str(input("\n Pick a option:\n\n - Bet\n - Quit\n\n"))
+        playerChoice = str(input("\n Pick a option:\n\n - Hit\n - Stand\n\n"))
         os.system('cls')
         
-        if playerChoice.lower() == "bet":
+        if playerChoice.lower() == "hit":
             print("\n ##############################################################\n")
-            player.bet()
+            player.giveCard()
             print("\n ##############################################################\n")
 
             time.sleep(3.0)
             os.system('cls')
 
-        elif playerChoice.lower() == "quit":
-            player.end()
-            print("\n ##############################################################\n")
-            print("                            Loading...                             ")
-            print("\n ##############################################################\n")
-
-            time.sleep(2.5)
+        elif playerChoice.lower() == "stand":
+            player.stand()
+            loading_print(2.5)
             os.system('cls')
 
         else:
@@ -210,6 +378,9 @@ while True:
 
     if player.is_playing == False and dealer.is_playing == False:
         
+        # Indicar que el juego termino.
+        has_game_started = False
+
         # Calcular los resultados si no hay todavia un ganador definido.
 
         if winner == None:
@@ -236,23 +407,35 @@ while True:
         print("\n ############################### Score ############################\n")
 
         if winner == "player":
+            
+            bet_money *= 2 #Se duplica lo apostado.
+
             print(" Player: " + str(player.value) + " Winner!")
             print(" Dealer: " + str(dealer.value) + " Loser...!")
         elif winner == "dealer":
+
+            bet_money = 0 #El dealer se queda con la apuesta.
+
             print(" Player: " + str(player.value) + " Loser...!")
             print(" Dealer: " + str(dealer.value) + " Winner!")
         else:
+            # Empate. Se devuelve la apuesta.
+
             print(" Player: " + str(player.value) + " Tie...!")
             print(" Dealer: " + str(dealer.value) + " Tie...!")
 
+        money += bet_money # Se le da la apuesta (ya sea duplicada, tal cual estaba o cero.)
 
         print("\n ---------------------- Press Space to continue ----------------------")
 
         keyboard.wait("space")
         os.system('cls')
 
+        loading_print(1.0)
+        os.system('cls')
+
         while True:
-            option = str(input(" Play again? (y/n): "))
+            option = str(input("Do you want to play again sir? (y/n): "))
 
             if option.lower() == "y":
                 restart()

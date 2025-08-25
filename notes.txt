@@ -1,14 +1,38 @@
+ACTUALIZACION (V2) -> APUESTAS.
+CAMBIOS:
+
+- Tengo la intencion de meter un contador de dinero para simular apuestas. [X]
+- Ya tengo hecha la mecanica de apostar, ahora solo queda poder ganar, perder o recuperar el dinero [X]
+- Mostrar en partida tanto el dinero que tienes como el dinero que apostaste [X]
+- Hacer que cuando el jugador se quede sin dinero tenga la opcion de pedir un prestamo []
+- Y relacionado con esto. Poner un contador que indique cuantos prestamos se han pedido. []
+
+
+- Al principio, se dan dos cartas a todo el mundo. [X]
+
+ACTUALIZACION GENERAL (V2.5)
+
+- Ponerle nombre al Jack, Queen y King. []
+- Añadirle mas opciones, como el Double o el Split. []
+
+- Hacer un mini tutorial al principio []
+- Y poner un aviso de que el juego debe comenzar con cierta resolucion y que no lo pongan en 
+  pantalla completa. []
+
+- Hacer mas dialogos para que el dealer sea muy amable en todo momento (por ejemplo si al hacer un input
+  ponemos letras sin sentido, el puede contestar que no nos entiende y que probemos de nuevo) []
+
+
 COSAS POR HACER:
 
-- Mostrar la carta que te ha tocado justo despues de apostar. [X]
 
-- Hacer que cuando te pases de 21, pierdas automaticamente. [X]
-- Hacer que se muestre toda la mano cada vez que se apuesta. [X]
 
-- En los resultados, se muestran las cartas tanto del player como del dealer. Tambien se mostraran la puntuacion a la que han
-llegado tanto el player como el dealer y por ultimo se muestra un texto del jugador que ha ganado. [X]
 
-- Pensar en como solucionar el problema de los ases. []
-- Hacer animacion de "Cargando..." despues justo de mostrar la carta. [X]
+IDEAS PARA ACTUALIZACIONES:
 
-- Tengo la intencion de meter un contador de dinero para simular apuestas. []
+- Actualizacion: Cambiar sistema de eleccion para que se pueda elegir solamente pulsando algunas teclas []
+- Actualizar el sistema de jugadores para poner a mas bots hasta un maximo de 4 jugadores. []
+- Actualizacion grande: probar alguna libreria que use ventanas graficas y pasar el juego
+  ahi []
+- (Cuando haga la actualizacion de las ventanas graficas) Hacer que el contador de prestamos
+  solo aparezca apartir del primer prestamo []
