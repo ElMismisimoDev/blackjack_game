@@ -1,5 +1,3 @@
 ERRORES:
 
-- Al darle a hit, no muestra la carta obtenida. -> Fixed
-- Los marcadores de dinero no se colocan bien, hay que poner un \n. -> Impossible to fix
 - Hay que solucionar el tema de los Aces, no funciona -> Not fixed

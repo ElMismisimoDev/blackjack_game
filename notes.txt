@@ -4,8 +4,8 @@ CAMBIOS:
 - Tengo la intencion de meter un contador de dinero para simular apuestas. [X]
 - Ya tengo hecha la mecanica de apostar, ahora solo queda poder ganar, perder o recuperar el dinero [X]
 - Mostrar en partida tanto el dinero que tienes como el dinero que apostaste [X]
-- Hacer que cuando el jugador se quede sin dinero tenga la opcion de pedir un prestamo []
-- Y relacionado con esto. Poner un contador que indique cuantos prestamos se han pedido. []
+- Hacer que cuando el jugador se quede sin dinero tenga la opcion de pedir un prestamo [X]
+- Y relacionado con esto. Poner un contador que indique cuantos prestamos se han pedido. [X]
 
 
 - Al principio, se dan dos cartas a todo el mundo. [X]
