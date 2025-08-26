@@ -22,6 +22,7 @@ ACTUALIZACION GENERAL (V2.5)
 - Hacer mas dialogos para que el dealer sea muy amable en todo momento (por ejemplo si al hacer un input
   ponemos letras sin sentido, el puede contestar que no nos entiende y que probemos de nuevo) []
 
+- Actualizacion: Cambiar sistema de eleccion para que se pueda elegir solamente pulsando algunas teclas []
 
 COSAS POR HACER:
 
@@ -30,7 +31,7 @@ COSAS POR HACER:
 
 IDEAS PARA ACTUALIZACIONES:
 
-- Actualizacion: Cambiar sistema de eleccion para que se pueda elegir solamente pulsando algunas teclas []
+
 - Actualizar el sistema de jugadores para poner a mas bots hasta un maximo de 4 jugadores. []
 - Actualizacion grande: probar alguna libreria que use ventanas graficas y pasar el juego
   ahi []
