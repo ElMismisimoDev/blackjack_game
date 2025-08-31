@@ -12,28 +12,28 @@ CAMBIOS:
 
 ACTUALIZACION GENERAL (V2.5)
 
-- Ponerle nombre al Jack, Queen y King. []
-- Añadirle mas opciones, como el Double o el Split. []
+- Ponerle nombre al Jack, Queen y King. [X]
+- Al final de la partida indicar cuanto se ha ganado [X]
+- Arreglar lo del loading print (lo del os.system('cls')) [X]
+- Añadirle mas opciones, como el Double [X]
 
-- Hacer un mini tutorial al principio []
-- Y poner un aviso de que el juego debe comenzar con cierta resolucion y que no lo pongan en 
-  pantalla completa. []
+- Hacer un mini tutorial al principio [X]
 
 - Hacer mas dialogos para que el dealer sea muy amable en todo momento (por ejemplo si al hacer un input
-  ponemos letras sin sentido, el puede contestar que no nos entiende y que probemos de nuevo) []
+  ponemos letras sin sentido, el puede contestar que no nos entiende y que probemos de nuevo) [X]
 
-- Actualizacion: Cambiar sistema de eleccion para que se pueda elegir solamente pulsando algunas teclas []
-
-COSAS POR HACER:
-
-
+- Actualizacion: Cambiar sistema de eleccion para que se pueda elegir solamente pulsando algunas teclas [X]
 
 
 IDEAS PARA ACTUALIZACIONES:
 
 
 - Actualizar el sistema de jugadores para poner a mas bots hasta un maximo de 4 jugadores. []
+- Y junto a esta actualizacion, meter la opcion de hacer split.
+
+
 - Actualizacion grande: probar alguna libreria que use ventanas graficas y pasar el juego
-  ahi []
+  ahi, y cuando lo haga hacerlo en un codigo distinto y dejar el codigo original para que
+  sea una version del juego para la terminal. []
 - (Cuando haga la actualizacion de las ventanas graficas) Hacer que el contador de prestamos
   solo aparezca apartir del primer prestamo []
