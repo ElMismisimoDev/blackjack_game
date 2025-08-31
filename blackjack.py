@@ -14,12 +14,12 @@ money = 5000
 bet_money = 0
 takenLoans = 0
 
-CARDS = range(1, 14)
+CARDS_NUMBERS = range(1, 14)
 TYPES = {
-    "C": "Clubs",
-    "H": "Hearts",
-    "S": "Spades",
-    "D": "Diamonds"
+    "C": "clubs",
+    "H": "hearts",
+    "S": "spades",
+    "D": "diamonds"
 }
 
 # Width = 100, Height = 30 
@@ -27,6 +27,21 @@ TYPES = {
 WIDTH = 100
 HEIGHT = 30
 os.system("mode con: cols=" + str(WIDTH) + " lines=" + str(HEIGHT))
+
+# Class Card (Cartas) #######################################
+
+class Card:
+
+    """
+    Esta clase es usada para clasificar cada carta de la baraja segun su nombre, numero y tipo.
+    Para iniciarla necesita el nombre, el numero y el tipo.
+    """
+
+    def __init__(self, name: str, number: int, type: str):
+
+        self.name = name
+        self.number = number
+        self.type = type
 
 # Class User (Jugador) ########################################
 
@@ -54,66 +69,38 @@ class User:
         return card
     
     def get_card_value(self, card):
-        
+
         cardValue = 0
-        number = ""
 
-        for ch in card:
-            if ch.isdigit():
-                number += ch
-
-        if number == "1": # El 1 es el Ace.
+        if card.number == 1: # El 1 es el Ace.
             cardValue = 11
             self.aceCards += 1
-        elif number in ("11", "12", "13"):
+        elif card.number >= 10:
             cardValue = 10
         else:
-            cardValue += int(number)        
+            cardValue += int(card.number)        
 
         return int(cardValue)
 
-    def card_name(self, card: str):
-        
-        type = ""
-        number = ""
-        cardName = ""
-
-        for ch in card:
-            if ch.isdigit():
-                number += ch
-            elif ch.isalpha():
-                type += TYPES[ch]
-        if number == "1": #El numero 1 es para los ases.
-            cardName = "Ace of " + type
-        elif number == "11":
-            cardName = "Jack of " + type
-        elif number == "12":
-            cardName = "Queen of " + type
-        elif number == "13":
-            cardName = "King of " + type
-        else:
-            cardName = number + " of " + type
-
-        return cardName
+    
 
     def giveCard(self): # Se llama a esta funcion cuando se hace un "hit".
         
         global winner
 
         card = self.choose_card()
-        cardName = self.card_name(card)
 
         # Identificar el tipo de carta para mostrarla (solo para el player).
 
         if self.name == "player":
             
             print("\n ##############################################################\n")
-            print(" Card: " + cardName)
+            print(" Card: " + card.name)
         
 
         # Añadir la carta a la mano y sumar el valor de esta.
 
-        self.hand.append(cardName)
+        self.hand.append(card)
         self.value += self.get_card_value(card)
 
 
@@ -233,11 +220,42 @@ def loading_print(seconds: float):
     time.sleep(seconds)
     os.system('cls')
 
+def card_name(card: str):
+        
+    """
+    Proporciona el nombre de una carta dandole el identificador de esa carta (Ej: S10 (10 of Spades))
+    """
+
+    type = ""
+    number = ""
+    cardName = ""
+    for ch in card:
+        if ch.isdigit():
+            number += ch
+        elif ch.isalpha():
+            type += TYPES[ch]
+    if number == "1": #El numero 1 es para los ases.
+        cardName = "Ace of " + type.capitalize()
+    elif number == "11":
+        cardName = "Jack of " + type.capitalize()
+    elif number == "12":
+        cardName = "Queen of " + type.capitalize()
+    elif number == "13":
+        cardName = "King of " + type.capitalize()
+    else:
+        cardName = number + " of " + type.capitalize()
+    return cardName
 
 def create_deck():
+    
     for type in TYPES:
-        for card in CARDS:
-            deck.append(type + str(card))
+        for card_num in CARDS_NUMBERS:
+
+            cardID = type + str(card_num)
+            cardName = card_name(cardID)
+            card = Card(cardName, card_num, TYPES[type])
+
+            deck.append(card)
 
 def choose_bet():
 
@@ -478,7 +496,7 @@ while True:
 
         print("\n PLAYER'S CARDS:")
         for card in player.hand:
-            print(" - " + card)
+            print(" - " + card.name)
 
         print("\n -------------------------------------------------------------")
 
@@ -546,11 +564,11 @@ while True:
         
         print("  Player's Cards:\n")
         for card in player.hand:
-            print(" - " + card)
+            print(" - " + card.name)
 
         print("\n  Dealer's Cards:\n")
         for card in dealer.hand:
-            print(" - " + card)
+            print(" - " + card.name)
 
         print("\n ############################### Score ############################\n")
 
