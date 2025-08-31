@@ -28,10 +28,6 @@ ACTUALIZACION GENERAL (V2.5)
 IDEAS PARA ACTUALIZACIONES:
 
 
-- Actualizar el sistema de jugadores para poner a mas bots hasta un maximo de 4 jugadores. []
-- Y junto a esta actualizacion, meter la opcion de hacer split.
-
-
 - Actualizacion grande: probar alguna libreria que use ventanas graficas y pasar el juego
   ahi, y cuando lo haga hacerlo en un codigo distinto y dejar el codigo original para que
   sea una version del juego para la terminal. []
